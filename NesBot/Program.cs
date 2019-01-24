@@ -10,6 +10,8 @@ namespace NesBot
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello");
+
             ControlSequence mySequnce = new ControlSequence();
 
             ButtonState buttonStateOne = new ButtonState();
