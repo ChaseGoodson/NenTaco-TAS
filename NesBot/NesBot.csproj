@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonState.cs" />
+    <Compile Include="SequencePrint.cs" />
     <Compile Include="ControlSequence.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
