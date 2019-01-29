@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace NesBot
 {
-    class SequncePrint
+    class SequencePrinter
     {
-        private object item;
-
-        private void Print(ControlSequence sequnce)
+		public void Print(ControlSequence sequence)
         {
-            Foreach(ButtonState, current, in mySequence);
+			foreach(ButtonState item in sequence)
             {
-                Console.WriteLine($"Right: {current.ButtonRightIsPressed}, Up: {current.ButtonUpIsPressed}");
-            }
+				Console.WriteLine($"Right: {item.ButtonRightIsPressed}, Left: {item.ButtonLeftIsPressed}, Up: {item.ButtonUpIsPressed}, Down: {item.ButtonDownIsPressed}, A: {item.ButtonAIsPressed}, B: {item.ButtonBIsPressed}");
+			}
         }
     }
 }

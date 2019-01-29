@@ -10,29 +10,36 @@ namespace NesBot
     {
         static void Main(string[] args)
         {
-            ControlSequence mySequnce = new ControlSequence();
+            ControlSequence mySequence = new ControlSequence();
 
             ButtonState buttonStateOne = new ButtonState();
             buttonStateOne.ButtonRightIsPressed = true;
-            mySequnce.Add(buttonStateOne);
+            mySequence.Add(buttonStateOne);
 
             ButtonState buttonStateTwo = new ButtonState();
-            buttonStateTwo.ButtonUpIsPressed = true;
-            mySequnce.Add(buttonStateTwo);
-            //
-            //            foreach (ButtonState current in mySequence)
-            //{
-            //                Console.WriteLine($"Right: {current.ButtonRightIsPressed}, Up: {current.ButtonUpIsPressed}");
-            //}
-            //
-            //
+            buttonStateTwo.ButtonLeftIsPressed = true;
+            mySequence.Add(buttonStateTwo);
 
-            SequncePrint printer = new SequncePrint();
-            
-            printer.Print(mySequnce);
+			ButtonState buttonStateThree = new ButtonState();
+			buttonStateThree.ButtonUpIsPressed = true;
+			mySequence.Add(buttonStateThree);
 
-            // TODO - print the button sequence out to the console.
+			ButtonState buttonStateFour = new ButtonState();
+			buttonStateFour.ButtonDownIsPressed = true;
+			mySequence.Add(buttonStateFour);
 
+			ButtonState buttonStateFive = new ButtonState();
+			buttonStateFive.ButtonAIsPressed = true;
+			mySequence.Add(buttonStateFive);
+
+			ButtonState buttonStateSix = new ButtonState();
+			buttonStateSix.ButtonBIsPressed = true;
+			mySequence.Add(buttonStateSix);
+
+
+			SequencePrinter printer = new SequencePrinter();
+			printer.Print(mySequence);
+			
             Console.WriteLine("Press Any Key To Continue");
             Console.ReadKey();
         }
