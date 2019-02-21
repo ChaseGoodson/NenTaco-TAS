@@ -19,9 +19,10 @@ namespace NesBot
         public ButtonState LeftJump { get; }
         public ButtonState Run { get; }
         
-        public void RunOne()
+        public ControlSequence RunOne()
         {
             var one = new ControlSequence
+
             {
 
                 ButtonState.DoNothing,
@@ -83,12 +84,12 @@ namespace NesBot
                 ButtonState.Jump     //top of dumb stairs
             
            };
-            
-            
+
+            return one; 
         }
-        public void RunTwo()
+        public ControlSequence RunTwo()
         {
-            var one = new ControlSequence
+            var two = new ControlSequence
             {
                 ButtonState.DoNothing,
                 ButtonState.Start,
@@ -113,6 +114,7 @@ namespace NesBot
                 ButtonState.LeftJump,
                 ButtonState.Down,
             };
+            return two;
         }
     }
 }

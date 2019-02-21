@@ -12,26 +12,24 @@ namespace NesBot
         {
             ControlSequence mySequence = new ControlSequence();
             
+            ControlSequence run = new ControlSequence();
+            run = run.RunTwo();
 
             var listOfRuns = new List<ControlSequence>();
-            listOfRuns.Add(mySequence);
+            listOfRuns.Add(run);
+
+            SequencePrinter printer = new SequencePrinter();
+			printer.Print(run);
 
             var player = new GamePlayer();
             player.Play(listOfRuns);
 
-
-            ControlSequence run = new ControlSequence();
-            run.RunOne();
-            
             var results = player.Play(listOfRuns);
             Console.WriteLine(results.Max(r => r.MaximumHorizontalDistance));
 
             var stepResults = player.Play(listOfRuns);
             Console.WriteLine(results.Max(r => r.StepWhereRunEnded));
             
-            SequencePrinter printer = new SequencePrinter();
-			printer.Print(mySequence);
-			
             Console.WriteLine("Press Any Key To Continue");
             Console.ReadKey();
         }
