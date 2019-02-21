@@ -11,33 +11,25 @@ namespace NesBot
         static void Main(string[] args)
         {
             ControlSequence mySequence = new ControlSequence();
+            
 
-            ButtonState buttonStateOne = new ButtonState();
-            buttonStateOne.ButtonRightIsPressed = true;
-            mySequence.Add(buttonStateOne);
+            var listOfRuns = new List<ControlSequence>();
+            listOfRuns.Add(mySequence);
 
-            ButtonState buttonStateTwo = new ButtonState();
-            buttonStateTwo.ButtonLeftIsPressed = true;
-            mySequence.Add(buttonStateTwo);
-
-			ButtonState buttonStateThree = new ButtonState();
-			buttonStateThree.ButtonUpIsPressed = true;
-			mySequence.Add(buttonStateThree);
-
-			ButtonState buttonStateFour = new ButtonState();
-			buttonStateFour.ButtonDownIsPressed = true;
-			mySequence.Add(buttonStateFour);
-
-			ButtonState buttonStateFive = new ButtonState();
-			buttonStateFive.ButtonAIsPressed = true;
-			mySequence.Add(buttonStateFive);
-
-			ButtonState buttonStateSix = new ButtonState();
-			buttonStateSix.ButtonBIsPressed = true;
-			mySequence.Add(buttonStateSix);
+            var player = new GamePlayer();
+            player.Play(listOfRuns);
 
 
-			SequencePrinter printer = new SequencePrinter();
+            ControlSequence run = new ControlSequence();
+            run.RunOne();
+            
+            var results = player.Play(listOfRuns);
+            Console.WriteLine(results.Max(r => r.MaximumHorizontalDistance));
+
+            var stepResults = player.Play(listOfRuns);
+            Console.WriteLine(results.Max(r => r.StepWhereRunEnded));
+            
+            SequencePrinter printer = new SequencePrinter();
 			printer.Print(mySequence);
 			
             Console.WriteLine("Press Any Key To Continue");

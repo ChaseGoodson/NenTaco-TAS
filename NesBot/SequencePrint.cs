@@ -12,7 +12,7 @@ namespace NesBot
         {
 			foreach(ButtonState item in sequence)
             {
-				Console.WriteLine($"Right: {item.ButtonRightIsPressed}, Left: {item.ButtonLeftIsPressed}, Up: {item.ButtonUpIsPressed}, Down: {item.ButtonDownIsPressed}, A: {item.ButtonAIsPressed}, B: {item.ButtonBIsPressed}");
+				Console.WriteLine($"Right: {item.ButtonRightIsPressed}, Left: {item.ButtonLeftIsPressed}, Up: {item.ButtonUpIsPressed}, Down: {item.ButtonDownIsPressed}, A: {item.ButtonAIsPressed}, B: {item.ButtonBIsPressed}, Start: {item.ButtonStartIsPressed}, Select: {item.ButtonSelectIsPressed}");
 			}
         }
     }

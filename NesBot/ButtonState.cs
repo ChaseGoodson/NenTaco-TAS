@@ -17,12 +17,36 @@ namespace NesBot
         public bool ButtonStartIsPressed { get; set; }
         public bool ButtonSelectIsPressed { get; set; }
 
-        public static ButtonState MovingRight =>
+        public static ButtonState DoNothing =>
+            new ButtonState();
+
+        public static ButtonState Start =>
+            new ButtonState() { ButtonStartIsPressed = true };
+
+        public static ButtonState Right =>
             new ButtonState() { ButtonRightIsPressed = true };
-        public static ButtonState Jumping =>
+
+        public static ButtonState Left =>
+            new ButtonState() { ButtonLeftIsPressed = true };
+
+        public static ButtonState Down =>
+            new ButtonState() { ButtonDownIsPressed = true };
+
+        public static ButtonState Jump =>
             new ButtonState() { ButtonAIsPressed = true };
-        public static ButtonState MovingRightAndJumping =>
+
+        public static ButtonState RightJump =>
             new ButtonState() { ButtonRightIsPressed = true,
                                 ButtonAIsPressed = true};
+
+        public static ButtonState LeftJump =>
+            new ButtonState() { ButtonLeftIsPressed = true,
+                                ButtonAIsPressed = true};
+
+        public static ButtonState Run =>
+            new ButtonState() { ButtonRightIsPressed = true,
+                                ButtonBIsPressed = true};
+
+
     }
 }

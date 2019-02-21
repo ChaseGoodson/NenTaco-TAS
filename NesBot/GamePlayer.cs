@@ -10,12 +10,12 @@ namespace NesBot
     public class GamePlayer
     {
         private RemoteAPI _api;
-        private List<ControlSequence> _runs;
-        private List<RunResult> _runResults = new List<RunResult>();
+        private List<ControlSequence> _Runs;
+        private List<RunResult> _RunResults = new List<RunResult>();
 
-        public List<RunResult> Play(List<ControlSequence> runs)
+        public List<RunResult> Play(List<ControlSequence> Runs)
         {
-            _runs = runs;
+            _Runs = Runs;
             ApiSource.initRemoteAPI("localhost", 9999);
 
             _api = ApiSource.API;
@@ -35,7 +35,7 @@ namespace NesBot
                 //Console.WriteLine("caught");
             }
 
-            return _runResults;
+            return _RunResults;
         }
 
         private void Deactivate()
@@ -50,6 +50,11 @@ namespace NesBot
             
             _api.Reset(); // Uncomment this to reset the console
             lastButtonChangeFrame = _api.GetFrameCount();
+        }
+        
+        internal void Play()
+        {
+            //throw new NotImplementedException();
         }
 
         private void StatusChanged(string message)
@@ -74,12 +79,12 @@ namespace NesBot
                 //Console.WriteLine("Changed");
             }
 
-            var buttonsInRun = _runs[currentRunNumber];
+            var buttonsInRun = _Runs[currentRunNumber];
 
             if (currentButtonInRun < buttonsInRun.Count)
             {
                 var button = buttonsInRun[currentButtonInRun];
-                //Console.WriteLine($"state transition: start: {button.ButtonStartIsPressed}");
+                //Console.WriteLine($"state transition: Start: {button.ButtonStartIsPressed}");
                 PushButtons(button);
             }
 
@@ -98,14 +103,14 @@ namespace NesBot
 
             if (primaryMode == 1 && secondaryMode == 1 && maxHorizontalPosition > 50 && currentButtonInRun > 4)
             {
-                _runResults.Add(new RunResult() { MaximumHorizontalDistance = maxHorizontalPosition, StepWhereRunEnded = currentButtonInRun });
+                _RunResults.Add(new RunResult() { MaximumHorizontalDistance = maxHorizontalPosition, StepWhereRunEnded = currentButtonInRun });
 
                 _api.Reset();
                 currentRunNumber++;
                 currentButtonInRun = 0;
                 maxHorizontalPosition = 0;
                 
-                if (currentRunNumber >= _runs.Count)
+                if (currentRunNumber >= _Runs.Count)
                 {
                     throw new Exception();
                 }
