@@ -62,6 +62,19 @@ namespace NesBot
         private int lastButtonChangeFrame = 0;
         private int buttonPressDuration = 60;
         private int maxHorizontalPosition = 0;
+        private int maxNumberOfLives = 2;
+        private bool gameHasStarted = false;
+
+        private int GetPrimaryMode() => _api.ReadCPU(0x0770); //  (0=title screen, 1=game, 2=victory, 3=game over)
+        private int GetSecondaryMode() => _api.ReadCPU(0x0772); 
+        private int GetNumberOfLives() => _api.ReadCPU(0x075A);
+        private bool IsGamePlayInteruppted() => GetPrimaryMode() == 1 && GetSecondaryMode() == 1;
+        private bool IsGamePlayHasStarted() => GetPrimaryMode() == 1 && GetSecondaryMode() == 3;
+        private int GetCurrentHorizontalPagePosition() => _api.ReadCPU(0x0086);
+        private int GetCurrentPageLocation() => _api.ReadCPU(0x006D);
+        private int GetCurrentHorizontalPosition() => GetCurrentHorizontalPagePosition() + (GetCurrentPageLocation() * 255);
+
+
 
         private void RenderFinished()
         {
@@ -83,9 +96,7 @@ namespace NesBot
                 PushButtons(button);
             }
 
-            int currentHorizontalPagePosition = _api.ReadCPU(0x0086);
-            int currentPageLocation = _api.ReadCPU(0x006D);
-            int currentHorizontalPosition = currentHorizontalPagePosition + (currentPageLocation * 255);
+            int currentHorizontalPosition = GetCurrentHorizontalPosition();
 
             if (currentHorizontalPosition > maxHorizontalPosition)
             {
@@ -93,10 +104,17 @@ namespace NesBot
                 Console.WriteLine(maxHorizontalPosition);
             }
 
-            int primaryMode = _api.ReadCPU(0x0770);
-            int secondaryMode = _api.ReadCPU(0x0772);
+            gameHasStarted |= IsGamePlayHasStarted();
 
-            if (primaryMode == 1 && secondaryMode == 1 && maxHorizontalPosition > 50 && currentButtonInRun > 4)
+            // 1, 1 - any black screen: dead, in a tunnel, end of level
+
+            int currentNumberOfLives = GetNumberOfLives();
+            if(currentNumberOfLives > maxNumberOfLives)
+            {
+                maxNumberOfLives = currentNumberOfLives;
+            }
+            else if (gameHasStarted && currentNumberOfLives < maxNumberOfLives)
+            //if (primaryMode == 1 && secondaryMode == 1 && maxHorizontalPosition > 50 && currentButtonInRun > 4)
             {
                 _runResults.Add(new RunResult() { MaximumHorizontalDistance = maxHorizontalPosition, StepWhereRunEnded = currentButtonInRun });
 
@@ -104,6 +122,7 @@ namespace NesBot
                 currentRunNumber++;
                 currentButtonInRun = 0;
                 maxHorizontalPosition = 0;
+                gameHasStarted = false;
                 
                 if (currentRunNumber >= _runs.Count)
                 {
