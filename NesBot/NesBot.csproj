@@ -46,9 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Achievements\Achievements.cs" />
+    <Compile Include="Achievements\DistanceAchievementEvaluator.cs" />
+    <Compile Include="Achievements\IAchievementEvaluator.cs" />
     <Compile Include="ButtonState.cs" />
     <Compile Include="SequencePrint.cs" />
     <Compile Include="ControlSequence.cs" />
+    <Compile Include="ControlSequenceFactory.cs" />
     <Compile Include="GamePlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
