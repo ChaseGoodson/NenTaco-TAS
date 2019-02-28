@@ -73,7 +73,14 @@ namespace NesBot
         private int GetCurrentHorizontalPagePosition() => _api.ReadCPU(0x0086);
         private int GetCurrentPageLocation() => _api.ReadCPU(0x006D);
         private int GetCurrentHorizontalPosition() => GetCurrentHorizontalPagePosition() + (GetCurrentPageLocation() * 255);
+        private int GetPlayerSize() => _api.ReadCPU(0x0754); // player's size (0=big, 1=small)
+        private int GetPlayerStatus() => _api.ReadCPU(0x0756); //  player status (0=small, 1=super, 2=fiery)
+        private int GetWorldNumber() => _api.ReadCPU(0x075f);
+        private int GetWorldAreaNumber() => _api.ReadCPU(0x075c);
 
+        // TODO: 
+        // Get the score
+        // Get max vertical position
 
 
         private void RenderFinished()
@@ -83,6 +90,7 @@ namespace NesBot
             if(currentStateDuration > buttonPressDuration)
             {
                 currentButtonInRun++;
+                System.Diagnostics.Debug.WriteLine(currentButtonInRun);
                 lastButtonChangeFrame = currentFrame;
                 //Console.WriteLine("Changed");
             }
@@ -106,7 +114,6 @@ namespace NesBot
 
             gameHasStarted |= IsGamePlayHasStarted();
 
-            // 1, 1 - any black screen: dead, in a tunnel, end of level
 
             int currentNumberOfLives = GetNumberOfLives();
             if(currentNumberOfLives > maxNumberOfLives)
@@ -128,6 +135,7 @@ namespace NesBot
                 {
                     throw new Exception();
                 }
+                Console.WriteLine($"Starting run {currentRunNumber}");
             }
 
         }
