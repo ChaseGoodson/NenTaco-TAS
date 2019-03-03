@@ -49,6 +49,7 @@
     <Compile Include="Achievements\Achievements.cs" />
     <Compile Include="Achievements\DistanceAchievementEvaluator.cs" />
     <Compile Include="Achievements\IAchievementEvaluator.cs" />
+    <Compile Include="Achievements\StepAchievementEvaluator.cs" />
     <Compile Include="ButtonState.cs" />
     <Compile Include="SequencePrint.cs" />
     <Compile Include="ControlSequence.cs" />
