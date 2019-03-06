@@ -38,7 +38,7 @@ namespace NesBot
                 ButtonState.Jump,
                 ButtonState.Left,
                 ButtonState.DoNothing,
-                ButtonState.Jump,
+                /*ButtonState.Jump,
                 ButtonState.Right,
                 ButtonState.RightJump,
                 ButtonState.Right,
@@ -82,7 +82,7 @@ namespace NesBot
                 ButtonState.Jump,
                 ButtonState.Run,
                 ButtonState.Jump     //top of dumb stairs
-            
+            */
            };
 
             return one; 

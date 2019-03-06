@@ -5,18 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using NesBot.Achievements;
 
+
 namespace NesBot
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
             ControlSequence mySequence = new ControlSequence();
 
             ControlSequence run = new ControlSequence();
             run = run.RunOne();
-            run = run.RunTwo();
-
+            //run = run.RunTwo();
+            
             var listOfRuns = new List<ControlSequence>();
             listOfRuns.Add(run);
 
@@ -26,7 +28,7 @@ namespace NesBot
             var player = new GamePlayer();
             player.Play(listOfRuns);
 
-            
+           
 
             var results = player.Play(listOfRuns);
             Console.WriteLine(results.Max(r => r.MaximumHorizontalDistance));
@@ -35,9 +37,11 @@ namespace NesBot
             Console.WriteLine(results.Max(r => r.StepWhereRunEnded));
 
             var eval = new DistanceAchievementEvaluator();
-            var achievement = eval.GetAchievements(stepResults);
+            var achievement = eval.GetAchievements(results);
             foreach (var a in achievement)
+            {
                 Console.WriteLine(a);
+            }
 
             Console.WriteLine("Press Any Key To Continue");
             Console.ReadKey();

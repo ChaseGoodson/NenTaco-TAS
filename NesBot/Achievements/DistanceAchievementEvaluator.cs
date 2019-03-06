@@ -15,15 +15,22 @@ namespace NesBot.Achievements
             // if one of the runs makes it past 450, return the pipe jumper achievement
             foreach(var run in runResults)
             {
-                if (run.MaximumHorizontalDistance >= 450)
+                if (run.MaximumHorizontalDistance > 450)
                     runAchievements.Add(Achievements.PipeJumper);
 
                 // TODO: check for Marathoner. It happens at 3000.
-                if (run.MaximumHorizontalDistance >= 3000)
+                if (run.MaximumHorizontalDistance > 3000)
                     runAchievements.Add(Achievements.Marathoner);
+
+                if (run.StepWhereRunEnded > 10)
+                    runAchievements.Add(Achievements.SteppingOut);
+
+                if (run.StepWhereRunEnded > 200)
+                    runAchievements.Add(Achievements.HighStepper);
             }
                         
             return runAchievements;
-        }          
+        }
+         
     }
 }

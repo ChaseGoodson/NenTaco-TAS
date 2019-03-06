@@ -9,5 +9,6 @@ namespace NesBot.Achievements
     public interface IAchievementEvaluator
     {
         List<Achievements> GetAchievements(List<RunResult> runResults);
+        
     }
 }

@@ -54,7 +54,7 @@ namespace NesBot
         
         internal void Play()
         {
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private void StatusChanged(string message)

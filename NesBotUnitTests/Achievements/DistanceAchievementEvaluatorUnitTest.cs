@@ -29,11 +29,11 @@ namespace NesBotUnitTests.Achievements
         [TestMethod]
         public void WillReturnMarathoner()
         {
-            var pipeJumpingRunResult = new RunResult();
-            pipeJumpingRunResult.MaximumHorizontalDistance = 3500;
+            var marathonerRunResult = new RunResult();
+            marathonerRunResult.MaximumHorizontalDistance = 3000;
 
             var runResults = new List<RunResult>();
-            runResults.Add(pipeJumpingRunResult);
+            runResults.Add(marathonerRunResult);
 
             var eval = new DistanceAchievementEvaluator();
 
@@ -43,5 +43,38 @@ namespace NesBotUnitTests.Achievements
 
         }
 
+        [TestMethod]
+        public void WillReturnSteppingOut()
+        {
+            var SteppingOutRunResult = new RunResult();
+            SteppingOutRunResult.StepWhereRunEnded = 10;
+
+            var runResults = new List<RunResult>();
+            runResults.Add(SteppingOutRunResult);
+
+            var eval = new DistanceAchievementEvaluator();
+
+            var ach = eval.GetAchievements(runResults);
+
+            Assert.AreEqual(3, ach.Count);
+
+        }
+
+        [TestMethod]
+        public void WillReturnHighStepper()
+        {
+            var highStepperRunResult = new RunResult();
+            highStepperRunResult.StepWhereRunEnded = 200;
+
+            var runResults = new List<RunResult>();
+            runResults.Add(highStepperRunResult);
+
+            var eval = new DistanceAchievementEvaluator();
+
+            var ach = eval.GetAchievements(runResults);
+
+            Assert.AreEqual(4, ach.Count);
+
+        }
     }
 }
