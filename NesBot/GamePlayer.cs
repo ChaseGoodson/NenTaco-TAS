@@ -54,7 +54,7 @@ namespace NesBot
         
         internal void Play()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void StatusChanged(string message)
@@ -138,7 +138,7 @@ namespace NesBot
                 
                 if (currentRunNumber >= _Runs.Count)
                 {
-                    throw new Exception();
+                    //throw new Exception();
                 }
                 Console.WriteLine($"Starting run {currentRunNumber}");
             }

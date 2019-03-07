@@ -16,8 +16,7 @@ namespace NesBot
             ControlSequence mySequence = new ControlSequence();
 
             ControlSequence run = new ControlSequence();
-            run = run.RunOne();
-            //run = run.RunTwo();
+            run = run.RunTwo();
             
             var listOfRuns = new List<ControlSequence>();
             listOfRuns.Add(run);
@@ -26,15 +25,7 @@ namespace NesBot
 			//printer.Print(run);
 
             var player = new GamePlayer();
-            player.Play(listOfRuns);
-
-           
-
             var results = player.Play(listOfRuns);
-            Console.WriteLine(results.Max(r => r.MaximumHorizontalDistance));
-
-            var stepResults = player.Play(listOfRuns);
-            Console.WriteLine(results.Max(r => r.StepWhereRunEnded));
 
             var eval = new DistanceAchievementEvaluator();
             var achievement = eval.GetAchievements(results);
@@ -42,6 +33,14 @@ namespace NesBot
             {
                 Console.WriteLine(a);
             }
+
+            
+            Console.WriteLine(results.Max(r => r.MaximumHorizontalDistance));
+
+            var stepResults = player.Play(listOfRuns);
+            Console.WriteLine(results.Max(r => r.StepWhereRunEnded));
+
+            
 
             Console.WriteLine("Press Any Key To Continue");
             Console.ReadKey();

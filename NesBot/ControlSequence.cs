@@ -112,6 +112,11 @@ namespace NesBot
                 ButtonState.Left,
                 ButtonState.LeftJump,
                 ButtonState.Down,
+                ButtonState.RightJump,
+                ButtonState.Right,
+                ButtonState.Jump,
+                ButtonState.Right,
+                ButtonState.Right
             
             };
             return two;

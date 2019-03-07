@@ -23,7 +23,7 @@ namespace NesBotUnitTests.Achievements
             var ach = eval.GetAchievements(runResults);
 
             Assert.AreEqual(1, ach.Count);
-
+            Console.WriteLine("Pipe Jumper Achievement Achieved");
         }
 
         [TestMethod]
@@ -40,6 +40,7 @@ namespace NesBotUnitTests.Achievements
             var ach = eval.GetAchievements(runResults);
 
             Assert.AreEqual(2, ach.Count);
+            Console.WriteLine("Marathoner Achievement Achieved");
 
         }
 
@@ -57,6 +58,7 @@ namespace NesBotUnitTests.Achievements
             var ach = eval.GetAchievements(runResults);
            
             Assert.AreEqual(1, ach.Count);
+            Console.WriteLine("Stepping Out Achievement Achieved");
 
         }
 
@@ -74,7 +76,8 @@ namespace NesBotUnitTests.Achievements
             var ach = eval.GetAchievements(runResults);
 
             Assert.AreEqual(2, ach.Count);
-
+            Console.WriteLine("High Stepper Achievement Achieved");
         }
     }
+    
 }
