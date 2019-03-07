@@ -22,8 +22,8 @@ namespace NesBot
             var listOfRuns = new List<ControlSequence>();
             listOfRuns.Add(run);
 
-            SequencePrinter printer = new SequencePrinter();
-			printer.Print(run);
+            //SequencePrinter printer = new SequencePrinter();
+			//printer.Print(run);
 
             var player = new GamePlayer();
             player.Play(listOfRuns);

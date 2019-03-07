@@ -13,7 +13,7 @@ namespace NesBotUnitTests.Achievements
         public void WillReturnPipeJumper()
         {
             var pipeJumpingRunResult = new RunResult();
-            pipeJumpingRunResult.MaximumHorizontalDistance = 500;
+            pipeJumpingRunResult.MaximumHorizontalDistance = 450;
 
             var runResults = new List<RunResult>();
             runResults.Add(pipeJumpingRunResult);
@@ -55,8 +55,8 @@ namespace NesBotUnitTests.Achievements
             var eval = new DistanceAchievementEvaluator();
 
             var ach = eval.GetAchievements(runResults);
-
-            Assert.AreEqual(3, ach.Count);
+           
+            Assert.AreEqual(1, ach.Count);
 
         }
 
@@ -73,7 +73,7 @@ namespace NesBotUnitTests.Achievements
 
             var ach = eval.GetAchievements(runResults);
 
-            Assert.AreEqual(4, ach.Count);
+            Assert.AreEqual(2, ach.Count);
 
         }
     }
