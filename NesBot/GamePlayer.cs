@@ -10,12 +10,12 @@ namespace NesBot
     public class GamePlayer
     {
         private RemoteAPI _api;
-        private List<ControlSequence> _Runs;
-        private List<RunResult> _RunResults = new List<RunResult>();
+        private List<ControlSequence> _runs;
+        private List<RunResult> _runResults = new List<RunResult>();
 
-        public List<RunResult> Play(List<ControlSequence> Runs)
+        public List<RunResult> Play(List<ControlSequence> runs)
         {
-            _Runs = Runs;
+            _runs = runs;
             ApiSource.initRemoteAPI("localhost", 9999);
 
             _api = ApiSource.API;
@@ -35,7 +35,7 @@ namespace NesBot
                 //Console.WriteLine("caught");
             }
 
-            return _RunResults;
+            return _runResults;
         }
 
         private void Deactivate()
@@ -49,12 +49,8 @@ namespace NesBot
             Console.WriteLine("API enabled");
             
             _api.Reset(); // Uncomment this to reset the console
+            maxHorizontalPosition = 0;
             lastButtonChangeFrame = _api.GetFrameCount();
-        }
-        
-        internal void Play()
-        {
-            //throw new NotImplementedException();
         }
 
         private void StatusChanged(string message)
@@ -83,6 +79,36 @@ namespace NesBot
         private int GetWorldNumber() => _api.ReadCPU(0x075f);
         private int GetWorldAreaNumber() => _api.ReadCPU(0x075c);
 
+        private int GetScore()
+        {
+            int hundredKPosition = _api.ReadCPU(0x07DE);
+            int tenKPosition = _api.ReadCPU(0x07DF);
+            int oneKPosition = _api.ReadCPU(0x07E0);
+            int hundredPosition = _api.ReadCPU(0x07E1);
+            int tenPosition = _api.ReadCPU(0x07E2);
+            int onePosition = _api.ReadCPU(0x07E3);
+
+            return
+                hundredKPosition * 100_000
+                + tenKPosition * 10_000
+                + oneKPosition * 1_000
+                + hundredPosition * 100
+                + tenPosition * 10
+                + onePosition;
+        }
+
+        private int GetCoins()
+        {
+
+            int tenPosition = _api.ReadCPU(0x07ED);
+            int onePosition = _api.ReadCPU(0x07EE);
+
+            return
+                tenPosition * 10
+                + onePosition;
+        }
+
+
         // TODO: 
         // Get the score
         // Get max vertical position
@@ -100,21 +126,21 @@ namespace NesBot
                 //Console.WriteLine("Changed");
             }
 
-            var buttonsInRun = _Runs[currentRunNumber];
+            var buttonsInRun = _runs[currentRunNumber];
 
             if (currentButtonInRun < buttonsInRun.Count)
             {
                 var button = buttonsInRun[currentButtonInRun];
-                //Console.WriteLine($"state transition: Start: {button.ButtonStartIsPressed}");
+                //Console.WriteLine($"state transition: start: {button.ButtonStartIsPressed}");
                 PushButtons(button);
             }
 
             int currentHorizontalPosition = GetCurrentHorizontalPosition();
 
-            if (currentHorizontalPosition > maxHorizontalPosition)
+            if (currentHorizontalPosition > maxHorizontalPosition && currentButtonInRun > 0)
             {
                 maxHorizontalPosition = currentHorizontalPosition;
-                Console.WriteLine(maxHorizontalPosition);
+                //Console.WriteLine(maxHorizontalPosition);
             }
 
             gameHasStarted |= IsGamePlayHasStarted();
@@ -128,7 +154,12 @@ namespace NesBot
             else if (gameHasStarted && currentNumberOfLives < maxNumberOfLives)
             //if (primaryMode == 1 && secondaryMode == 1 && maxHorizontalPosition > 50 && currentButtonInRun > 4)
             {
-                _RunResults.Add(new RunResult() { MaximumHorizontalDistance = maxHorizontalPosition, StepWhereRunEnded = currentButtonInRun });
+                _runResults.Add(new RunResult() {
+                    MaximumHorizontalDistance = maxHorizontalPosition,
+                    StepWhereRunEnded = currentButtonInRun,
+                    Score = GetScore(),
+                    Coins = GetCoins()
+                });
 
                 _api.Reset();
                 currentRunNumber++;
@@ -136,12 +167,14 @@ namespace NesBot
                 maxHorizontalPosition = 0;
                 gameHasStarted = false;
                 
-                if (currentRunNumber >= _Runs.Count)
+                if (currentRunNumber >= _runs.Count)
                 {
-                    //throw new Exception();
+                    throw new Exception();
                 }
                 Console.WriteLine($"Starting run {currentRunNumber}");
             }
+
+            //Console.WriteLine(GetCoins());
 
         }
 
