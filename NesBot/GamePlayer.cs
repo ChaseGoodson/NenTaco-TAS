@@ -169,7 +169,7 @@ namespace NesBot
                 
                 if (currentRunNumber >= _runs.Count)
                 {
-                    throw new Exception();
+                    //throw new Exception();
                 }
                 Console.WriteLine($"Starting run {currentRunNumber}");
             }

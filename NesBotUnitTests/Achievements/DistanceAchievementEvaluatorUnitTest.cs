@@ -44,40 +44,7 @@ namespace NesBotUnitTests.Achievements
 
         }
 
-        [TestMethod]
-        public void WillReturnSteppingOut()
-        {
-            var SteppingOutRunResult = new RunResult();
-            SteppingOutRunResult.StepWhereRunEnded = 10;
-
-            var runResults = new List<RunResult>();
-            runResults.Add(SteppingOutRunResult);
-
-            var eval = new DistanceAchievementEvaluator();
-
-            var ach = eval.GetAchievements(runResults);
-           
-            Assert.AreEqual(1, ach.Count);
-            Console.WriteLine("Stepping Out Achievement Achieved");
-
-        }
-
-        [TestMethod]
-        public void WillReturnHighStepper()
-        {
-            var highStepperRunResult = new RunResult();
-            highStepperRunResult.StepWhereRunEnded = 200;
-
-            var runResults = new List<RunResult>();
-            runResults.Add(highStepperRunResult);
-
-            var eval = new DistanceAchievementEvaluator();
-
-            var ach = eval.GetAchievements(runResults);
-
-            Assert.AreEqual(2, ach.Count);
-            Console.WriteLine("High Stepper Achievement Achieved");
-        }
+        
     }
     
 }

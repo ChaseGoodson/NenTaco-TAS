@@ -26,37 +26,47 @@ namespace NesBot
             var player = new GamePlayer();
             var results = player.Play(listOfRuns);
 
-            var eval = new DistanceAchievementEvaluator();
-            var achievement = eval.GetAchievements(results);
-
-            Console.WriteLine(results.Max(r => r.MaximumHorizontalDistance));
-            Console.WriteLine(results.Max(r => r.StepWhereRunEnded));
-
-            Console.WriteLine("Do you want the achievements to print to screen or to text file?");
-            Console.WriteLine("1) Screen");
-            Console.WriteLine("2) Text");
-            Console.WriteLine("Press 1 or 2");
-            int userPick = Convert.ToInt32(Console.ReadLine());
-            if (userPick == 1)
+            var evaluators = new List<IAchievementEvaluator>()
             {
-                foreach (var a in achievement)
+                new DistanceAchievementEvaluator(),
+                new StepAchievementEvaluator(),
+                new ScoreAchievementEvaluator(),
+                new CoinAchievementEvaluator(),
+            };
+                
+                Console.WriteLine("Do you want the achievements to print to screen or to text file?");
+                Console.WriteLine("1) Screen");
+                Console.WriteLine("2) Text");
+                Console.WriteLine("Press 1 or 2");
+                int userPick = Convert.ToInt32(Console.ReadLine());
+
+            foreach (IAchievementEvaluator evaluator in evaluators)
+            {
+                var achievement = evaluator.GetAchievements(results);
+                if (userPick == 1)
                 {
-                    Console.WriteLine(a);
-                }
-            }
-            else if (userPick == 2)
-            {
-                using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(@"C:\Users\cheez\Desktop\Achievements.txt"))
                     foreach (var a in achievement)
                     {
-                        file.WriteLine(a);
+                        Console.WriteLine(a);
                     }
+                }
+                else if (userPick == 2)
+                {
+                    using (System.IO.StreamWriter file =
+                    new System.IO.StreamWriter(@"C:\Users\cheez\Desktop\Achievements.txt"))
+                    foreach (var a in achievement)
+                        {
+                            file.WriteLine(a);
+                        }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice. Your achievements are deleted.");
+                }
             }
-            else
-            {
-                Console.WriteLine("Invalid choice. Your achievements are deleted.");
-            }
+            
+            Console.WriteLine(results.Max(r => r.MaximumHorizontalDistance));
+            Console.WriteLine(results.Max(r => r.StepWhereRunEnded));
 
             Console.WriteLine("Press Any Key To Continue");
             Console.ReadKey();

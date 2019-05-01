@@ -14,6 +14,14 @@ namespace NesBot.Achievements
 
         // Steps
         SteppingOut,
-        HighStepper
+        HighStepper,
+
+        // Score
+        Century,
+        Millennium,
+
+        // Coins
+        Penny,
+        Nickel
     }
 }

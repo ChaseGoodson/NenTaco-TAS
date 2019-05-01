@@ -10,23 +10,17 @@ namespace NesBot.Achievements
     {
         public List<Achievements> GetAchievements(List<RunResult> runResults)
         {
-            List<Achievements> runAchievements = new List<Achievements>();
+            var runAchievements = new List<Achievements>();
 
-            foreach(var run in runResults)
+            foreach(var result in runResults)
             {
-                if (run.MaximumHorizontalDistance >= 450)
+                if (result.MaximumHorizontalDistance >= 450)
                     runAchievements.Add(Achievements.PipeJumper);
 
                 
-                if (run.MaximumHorizontalDistance >= 3000)
+                if (result.MaximumHorizontalDistance >= 3000)
                     runAchievements.Add(Achievements.Marathoner);
-
-                if (run.StepWhereRunEnded >= 10)
-                    runAchievements.Add(Achievements.SteppingOut);
-
-                if (run.StepWhereRunEnded >= 200)
-                    runAchievements.Add(Achievements.HighStepper);
-            
+                            
             }
                         
             return runAchievements;

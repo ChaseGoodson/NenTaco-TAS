@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Achievements\DistanceAchievementEvaluatorUnitTest.cs" />
+    <Compile Include="Achievements\StepDistanceAchievementEvaluatorUnitTest.cs" />
+    <Compile Include="Achievements\CoinAchievementEvaluatorUnitTest.cs" />
+    <Compile Include="Achievements\ScoreAchievementEvaluatorUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
